@@ -1,148 +1,95 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/CategoriesHome.css'
-import heroImg1 from '../images/hero-img1.png'
-import heroImg2 from '../images/hero-img2.png'
-import heroImg3 from '../images/hero-img3.png'
-import heroImg4 from '../images/hero-img4.png'
-
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 const CategoriesHome = () => {
-
   const navigate = useNavigate()
 
-  
-  const [items, setItems] = React.useState([])
-  
-  const [categories, setCategories] = React.useState([])
-  
+  const [items, setItems] = useState([])
+  const [categories, setCategories] = useState([])
+  const [loadingCategories, setLoadingCategories] = useState(true)
+  const [loadingItems, setLoadingItems] = useState(true)
+
   useEffect(() => {
     fetchCategories()
     fetchItems()
   }, [])
 
   const fetchCategories = async () => {
-    await axios.get('https://www.themealdb.com/api/json/v1/1/categories.php')
-      .then(response => {
-        setCategories(response.data.categories)
-        console.log(response.data.categories)
-      })
-      .catch(error => console.error(error)); 
-    
+    try {
+      const response = await axios.get('https://www.themealdb.com/api/json/v1/1/categories.php')
+      setCategories(response.data.categories || [])
+    } catch (error) {
+      console.error("Error fetching categories:", error)
+    } finally {
+      setLoadingCategories(false)
+    }
   }
 
   const fetchItems = async () => {
-    await axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian')
-      .then(response => {
-        setItems(response.data.meals)
-        console.log(response.data.meals)
-      })
-      .catch(error => console.error(error)); 
-    
+    try {
+      const response = await axios.get('https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian')
+      setItems(response.data.meals || [])
+    } catch (error) {
+      console.error("Error fetching items:", error)
+    } finally {
+      setLoadingItems(false)
+    }
   }
 
   return (
-    <div className='home-categories-container' id='popular'>
+    <div className="home-categories-container" id="popular">
 
+      {/* Categories Section */}
       <div className="popular-categories-body">
         <h3>Most Popular Categories</h3>
-        <p>Be sure not to miss out the categories of these most popular categories. Enjoy trying them out!</p>
+        <p>Be sure not to miss out on these most popular categories. Enjoy trying them out!</p>
 
-        {categories.length > 0 ? 
-        
-      
-        <>
+        {loadingCategories ? (
+          <p>Loading categories...</p>
+        ) : (
           <div className="popular-categories">
-
-              {categories.map((category, index)=>{
-                return (
-                  index < 9 && 
-                  <div className="popular-category" key={index} onClick={()=>navigate(`/category/${category.strCategory}`)} >
-                    <img src={category.strCategoryThumb} alt="" />
-                    <span>
-                      <h4>{category.strCategory}</h4>
-                      <p>View All Recipies</p>
-                    </span>
-                  </div>
-                )
-              }
-
-              )}
-
-              
+            {categories.slice(0, 9).map((category, index) => (
+              <div
+                className="popular-category"
+                key={index}
+                onClick={() => navigate(`/category/${category.strCategory}`)}
+              >
+                <img src={category.strCategoryThumb} alt={category.strCategory} />
+                <span>
+                  <h4>{category.strCategory}</h4>
+                  <p>View All Recipes</p>
+                </span>
+              </div>
+            ))}
           </div>
-        </>
-        
-        :"Loading"}
-
-
+        )}
       </div>
 
-
-      <div className="popular-dishes-body" id='recipies'>
+      {/* Dishes Section */}
+      <div className="popular-dishes-body" id="recipes">
         <h3>Trending Dishes</h3>
 
-        {items.length > 0 ? 
-            <div className="popular-dishes">
-
-                <span className='dishes-small'>
-
-                <div className="popular-dish" onClick={()=> navigate(`/recipie/${items[6].idMeal}`)}>
-                    <img src={items[6].strMealThumb} alt="" />
-                      <p>{items[6].strMeal}</p>
-                </div>
-                <div className="popular-dish" onClick={()=> navigate(`/recipie/${items[7].idMeal}`)}>
-                    <img src={items[7].strMealThumb} alt="" />
-                      <p>{items[7].strMeal}</p>
-                </div>
-                <div className="popular-dish" onClick={()=> navigate(`/recipie/${items[8].idMeal}`)}>
-                    <img src={items[8].strMealThumb} alt="" />
-                      <p>{items[8].strMeal}</p>
-                </div>
-
-                </span>
-                <span className='dishes-big'>
-
-                    <div className="popular-dish" onClick={()=> navigate(`/recipie/${items[0].idMeal}`)} >
-                        <img src={items[0].strMealThumb} alt="" />
-                          <p>{items[0].strMeal}</p>
-                    </div>
-                    <div className="popular-dish" onClick={()=> navigate(`/recipie/${items[5].idMeal}`)}>
-                        <img src={items[5].strMealThumb} alt="" />
-                          <p>{items[5].strMeal}</p>
-                    </div>
-
-                </span>
-                <span className='dishes-small'>
-
-                    <div className="popular-dish" onClick={()=> navigate(`/recipie/${items[2].idMeal}`)}>
-                        <img src={items[2].strMealThumb} alt="" />
-                          <p>{items[2].strMeal}</p>
-                    </div>
-                    <div className="popular-dish" onClick={()=> navigate(`/recipie/${items[3].idMeal}`)}>
-                        <img src={items[3].strMealThumb} alt="" />
-                          <p>{items[3].strMeal}</p>
-                    </div>
-                    <div className="popular-dish" onClick={()=> navigate(`/recipie/${items[4].idMeal}`)}>
-                        <img src={items[4].strMealThumb} alt="" />
-                          <p>{items[4].strMeal}</p>
-                    </div>
-                    
-                </span>
-
-                
-            </div>
-        
-        :""}
-
-{/* 
-        <button >View more</button> */}
+        {loadingItems ? (
+          <p>Loading dishes...</p>
+        ) : items.length > 0 ? (
+          <div className="popular-dishes">
+            {items.slice(0, 8).map((dish, index) => (
+              <div
+                className={`popular-dish ${index === 0 || index === 5 ? 'big' : 'small'}`}
+                key={dish.idMeal}
+                onClick={() => navigate(`/recipe/${dish.idMeal}`)}
+              >
+                <img src={dish.strMealThumb} alt={dish.strMeal} />
+                <p>{dish.strMeal}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No dishes found.</p>
+        )}
       </div>
-
-
-
-
     </div>
   )
 }
