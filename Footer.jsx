@@ -1,43 +1,55 @@
-import React from 'react'
-import '../styles/Footer.css'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import '../styles/Footer.css';
+import { useNavigate } from 'react-router-dom';
+import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  // Categories grouped into columns
+  const footerLinks = [
+    ['Home', 'Chicken', 'Breakfast'],
+    ['Dessert', 'Goat', 'Lamb'],
+    ['Pasta', 'Seafood', 'Starter'],
+    ['Vegan', 'Side', 'Miscellaneous'],
+  ];
 
   return (
-    <div className='footer'>
+    <div className="footer">
+      <h3>SB Recipes</h3>
 
-        <h3>SB Recipess...</h3>
+      {/* Footer Navigation Links */}
+      <div className="footer-options">
+        {footerLinks.map((group, index) => (
+          <ul key={index}>
+            {group.map((item) => (
+              <li
+                key={item}
+                onClick={() =>
+                  item === 'Home'
+                    ? navigate('/')
+                    : navigate(`/category/${item}`)
+                }
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
 
-        <div className="footer-options">
-          <ul>
-            <li  onClick={()=>navigate(`/`)}>Home</li>
-            <li  onClick={()=>navigate(`/category/Chicken`)}>Chicken</li>
-            <li  onClick={()=>navigate(`/category/Breakfast`)}>Breakfast</li>
-          </ul>
-          <ul>
-            <li  onClick={()=>navigate(`/category/Dessert`)}>Dessert</li>
-            <li  onClick={()=>navigate(`/category/Goat`)}>Goat</li>
-            <li  onClick={()=>navigate(`/category/Lamb`)}>Lamb</li>
-          </ul>
-          <ul>
-            <li  onClick={()=>navigate(`/category/Pasta`)}>Pasta</li>
-            <li  onClick={()=>navigate(`/category/Seafood`)}>Seafood</li>
-            <li  onClick={()=>navigate(`/category/Starter`)}>Starter</li>
-          </ul>
-          <ul>
-            <li  onClick={()=>navigate(`/category/Vegan`)}>Vegan</li>
-            <li  onClick={()=>navigate(`/category/Side`)}>Side</li>
-            <li  onClick={()=>navigate(`/category/Miscellaneous`)}>Miscellaneous</li>
-          </ul>
-        </div>
+      <hr />
 
-        <hr />
-        <p>SB Recipiess - &copy; 2023 - All Rights Reserved</p>
+      {/* Social Media Section */}
+      <div className="footer-social">
+        <FaFacebookF className="social-icon" />
+        <FaInstagram className="social-icon" />
+        <FaTwitter className="social-icon" />
+      </div>
+
+      <p>SB Recipes - &copy; {new Date().getFullYear()} - All Rights Reserved</p>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
