@@ -1,3 +1,27 @@
-.homepage{
-    padding-top: 12vh;
+.homepage {
+  padding-top: 12vh;
+  padding-left: 4vw;
+  padding-right: 4vw;
+  min-height: 100vh;             /* ensures full screen */
+  display: flex;
+  flex-direction: column;
+  gap: 6vh;                      /* space between sections */
+  background: linear-gradient(180deg, #f9fff9 0%, #ffffff 100%);
+}
+
+/* Responsive padding */
+@media (max-width: 768px) {
+  .homepage {
+    padding-top: 10vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    gap: 4vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .homepage {
+    padding-top: 8vh;
+    gap: 3vh;
+  }
 }
