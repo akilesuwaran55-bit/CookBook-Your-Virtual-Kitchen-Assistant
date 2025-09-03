@@ -1,137 +1,142 @@
-.Recipie-page{
-    padding-top: 12vh;
-    min-height: 60vh;
+.Recipie-page {
+  padding-top: 12vh;
+  min-height: 60vh;
+  background-color: #f9f9f9;
+  padding-bottom: 5vh;
 }
 
-.recipie-img{
-
-    width: 100%;
-    padding-top: 2vh;
+/* Recipe Image */
+.recipie-img {
+  width: 100%;
+  padding-top: 2vh;
+  display: flex;
+  justify-content: center;
 }
 
-.recipie-img img{
-
-    width: 98%;
-    margin-left: 1%;
-    height: 85vh;
-    border-radius: 0.7rem;
+.recipie-img img {
+  width: 98%;
+  height: 85vh;
+  object-fit: cover;
+  border-radius: 0.7rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 30px;
 }
 
-.recipie-data-container{
-
-    display: grid;
-    grid-template-columns: 65% 25%;
-    justify-content: space-evenly;
-    
+/* Data & Ingredients Grid */
+.recipie-data-container {
+  display: grid;
+  grid-template-columns: 65% 30%;
+  gap: 5%;
+  margin-top: 3vh;
 }
 
-.recipie-data{
-
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
-    position: relative;
-    top: -15vh;
-    background-color: #fff;
-    padding: 4vh 2vw;
-    border-radius: 0.6rem;
+/* Recipe Details Card */
+.recipie-data {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 18px 50px -10px;
+  background-color: #fff;
+  padding: 4vh 2vw;
+  border-radius: 0.8rem;
 }
 
-.recipie-header{
-
-
+/* Header & Specials */
+.recipie-header h4 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #234d23;
 }
 
-.recipie-header h4{
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 500;
+.recipie-header .recipie-specials {
+  display: flex;
+  gap: 10px;
+  margin-top: 1vh;
 }
 
-.recipie-header .recipie-specials{
-    display: flex;
-    gap: 10px;
+.recipie-header .recipie-specials p {
+  border: 1px solid rgb(35, 209, 35);
+  color: rgb(35, 209, 35);
+  padding: 5px 18px;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
-.recipie-header .recipie-specials p{
-    border: 1px solid rgb(35, 209, 35);
-    color: rgb(35, 209, 35);
-    padding: 5px 20px;
-    border-radius: 2rem;
-    font-size: 0.7rem;
+/* Procedure Section */
+.recipie-data .procedure h5 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0;
+  padding-top: 3vh;
+  color: #1a5e1a;
 }
 
-.recipie-data .procedure{
-
+.recipie-data .procedure p {
+  margin: 0.5vh 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-.recipie-data .procedure h5{
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin: 0;
-    padding-top: 3vh;
+/* YouTube Video */
+.youtube-video-container h5 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 3vh 0 1vh;
+  color: #1a5e1a;
 }
 
-
-.recipie-data .procedure p{
-    margin: 0;
-    font-size: 0.9rem;   
+/* Ingredients Card */
+.ingredients-container {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 18px 50px -10px;
+  background-color: #fff;
+  padding: 4vh 2vw;
+  border-radius: 0.8rem;
+  height: fit-content;
 }
 
-.youtube-video-container{
-
-
+.ingredients-container h3 {
+  margin: 0;
+  padding-bottom: 1vh;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgb(23, 162, 23);
 }
 
-.youtube-video-container h5{
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin: 0;
-    padding-top: 3vh;
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
 }
 
-
-
-
-.ingredients-container{
-
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
-    position: relative;
-    top: -15vh;
-    background-color: #fff;
-    padding: 4vh 2vw;
-    border-radius: 0.6rem;
-    height: fit-content;
+.ingredient {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 0;
 }
 
-.ingredients-container h3{
-    margin: 0;
-    padding-bottom: 1vh;
-    font-size: 1.3rem;
-    font-weight: 500;
-    color: rgb(23, 162, 23);
+.ingredient h5 {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 500;
+  max-width: 55%;
+  color: #333;
 }
 
-.ingredients{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0;
+.ingredient p {
+  margin: 0;
+  font-size: 0.85rem;
+  max-width: 40%;
+  color: #555;
 }
 
-.ingredient{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .recipie-data-container {
+    grid-template-columns: 1fr;
+    gap: 2vh;
+  }
 
-.ingredient h5{
-    font-size: 1rem;
-    margin: 0;
-    font-weight: 400;
-    max-width: 50%;
-}
-
-.ingredient p{
-    margin: 0;
-    font-size: 0.8rem;
-    max-width: 40%;
+  .recipie-img img {
+    height: 60vh;
+  }
 }
